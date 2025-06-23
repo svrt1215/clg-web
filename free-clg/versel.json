@@ -1,5 +1,5 @@
 {
   "routes": [
-    { "src": "/[^.]+", "dest": "frontend/", "status": 200 }
+    { "src": "/[^.]+", "dest": "free-clg/", "status": 200 }
   ]
 }
