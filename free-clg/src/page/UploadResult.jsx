@@ -13,6 +13,7 @@ const UploadResult = () => {
   const semesterOptions = ['I Sem', 'II Sem', 'III Sem', 'IV Sem', 'V Sem', 'VI Sem', 'VII Sem', 'VIII Sem'];
 
   const correctKey = import.meta.env.VITE_ADMIN_KEY;
+  const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const [student, setStudent] = useState({
     name: '', enrollment: '', dob: '', fatherName: '', motherName: '',
@@ -80,7 +81,7 @@ const formattedDob = formatDateToDDMMYYYY(student.dob);
   };
 
   try {
-    const res = await fetch('http://localhost:5000/api/results', {
+    const res = await fetch(`${VITE_BASE_URL}/api/results`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

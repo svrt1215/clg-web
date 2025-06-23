@@ -12,6 +12,7 @@ const Result = () => {
   const [modeOfStudy, setModeOfStudy] = useState('Year');
   const semesterOptions = ['I Sem', 'II Sem', 'III Sem', 'IV Sem', 'V Sem', 'VI Sem', 'VII Sem', 'VIII Sem'];
   const yearOptions = ['I Year', 'II Year', 'III Year', 'IV Year'];
+  const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const handleSearch = async () => {
   if (!enrollment || !dob || !semester) {
@@ -22,7 +23,7 @@ const handleSearch = async () => {
   try {
     const formattedDob = formatDateToDDMMYYYY(dob);
     const res = await fetch(
-      `http://localhost:5000/api/results?enrollment=${enrollment.trim().toLowerCase()}&dob=${formattedDob}`
+      `${VITE_BASE_URL}/api/results?enrollment=${enrollment.trim().toLowerCase()}&dob=${formattedDob}`
     );
 
     if (!res.ok) {
