@@ -1,0 +1,13 @@
+{
+  "name": "freelance",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --backend && npm install --free-clg && npm run build --prefix free-clg",
+    "start": "npm run start --prefix backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
