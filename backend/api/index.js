@@ -1,3 +1,4 @@
+// backend/api/index.js
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -8,23 +9,27 @@ dotenv.config();
 
 const app = express();
 
-// CORS middleware (handle preflight)
-app.use(cors({
-  origin: '*',
+const corsOptions = {
+  origin: ['https://clg-web-z5c9.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
+  credentials: true,
+};
 
-app.options('*', cors()); // 💡 Handle preflight requests
-
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Preflight
 app.use(express.json());
 app.use('/api/results', resultRoutes);
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('Connection error:', err));
+// Initialize mongoose connection on first cold start
+let isConnected = false;
+async function initDB() {
+  if (isConnected) return;
+  await mongoose.connect(process.env.MONGO_URI);
+  isConnected = true;
+}
 
-// Export for serverless
-export default app;
+export default async (req, res) => {
+  await initDB();
+  return app(req, res);
+};

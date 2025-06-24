@@ -81,13 +81,19 @@ const formattedDob = formatDateToDDMMYYYY(student.dob);
   };
 
   try {
-    const res = await fetch(`${VITE_BASE_URL}/api/results`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(finalData),
-    });
+    // const res = await fetch(`${VITE_BASE_URL}/api/results`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(finalData),
+    // });
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/results`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(finalData),
+});
+
 
     if (!res.ok) {
       throw new Error('Failed to upload result');
